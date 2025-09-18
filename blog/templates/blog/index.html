@@ -1,0 +1,68 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<link rel="stylesheet" href="{% static 'blog/style.css' %}">
+<title>Blog</title>
+</head>
+<body>
+    <div class="container">
+        <div class="articles">
+            <h1>Artigos</h1>
+            {% if articles %}
+            <ul>
+                {% for art in articles %}
+                <li>
+                <a href="{% url 'article_detail' art.pk %}">
+                {{ art.title }}
+                </a>
+                </li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        </div>
+        <div class="article-detail">
+            {% if article %}
+            <h2>{{ article.title }}</h2>
+            <p>{{ article.article_html|safe }}</p>
+            <small>Publicado em: {{ article.create_at|date:"d/m/Y H:i" }} - 
+                Autor: {{ article.author }}</small>
+            {% else %}
+            <div class="welcome-section">
+            <h2>Bem-vindo ao Meu Blog</h2>
+            <p class="subtitle">Explorando ideias, compartilhando conhecimento</p>
+            
+            <p class="description">
+                Este é o meu espaço digital onde compartilho reflexões, experiências e conhecimentos sobre diversos temas que me inspiram. Aqui você encontrará artigos cuidadosamente escritos, abordando desde tecnologia e desenvolvimento até reflexões sobre vida, carreira e crescimento pessoal.
+            </p>
+        
+            <div class="features">
+                <div class="feature">
+                    <h3>🚀 Conteúdo Original</h3>
+                    <p>Artigos únicos baseados em experiência prática e pesquisa aprofundada sobre cada tema abordado.</p>
+                </div>
+                <div class="feature">
+                    <h3>📚 Aprendizado Contínuo</h3>
+                    <p>Compartilho descobertas e lições aprendidas no dia a dia, sempre com foco no crescimento mútuo.</p>
+                </div>
+                <div class="feature">
+                    <h3>💡 Insights Práticos</h3>
+                    <p>Dicas e estratégias aplicáveis que você pode usar em seus próprios projetos e desafios.</p>
+                </div>
+                <div class="feature">
+                    <h3>🌟 Diversidade de Temas</h3>
+                    <p>De tecnologia a desenvolvimento pessoal, explorando diferentes áreas do conhecimento.</p>
+                </div>
+            </div>
+            
+            <div class="cta">
+                <h3>Comece sua Jornada</h3>
+                <p>Navegue pelos artigos na sidebar ao lado e descubra conteúdos que podem transformar sua perspectiva. Cada artigo foi escrito com carinho e dedicação para agregar valor ao seu dia.</p>
+            </div>
+        </div>
+            {% endif %}
+        </div>
+    </div>
+    </body>
+</html>
