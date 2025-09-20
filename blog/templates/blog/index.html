@@ -4,9 +4,16 @@
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="{% static 'blog/style.css' %}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Domine:wght@400..700&display=swap" rel="stylesheet">
 <title>Blog</title>
 </head>
 <body>
+    <button class="theme-toggle" onclick="toggleTheme()">
+        <span class="theme-icon moon">🌙</span>
+        <span class="theme-icon sun">☀️</span>
+    </button>
     <div class="container">
         <div class="articles">
             <h1>Artigos</h1>
@@ -31,38 +38,83 @@
             {% else %}
             <div class="welcome-section">
             <h2>Bem-vindo ao Meu Blog</h2>
-            <p class="subtitle">Explorando ideias, compartilhando conhecimento</p>
+            <p class="subtitle">Explorando ideias, 
+                compartilhando conhecimento</p>
             
             <p class="description">
-                Este é o meu espaço digital onde compartilho reflexões, experiências e conhecimentos sobre diversos temas que me inspiram. Aqui você encontrará artigos cuidadosamente escritos, abordando desde tecnologia e desenvolvimento até reflexões sobre vida, carreira e crescimento pessoal.
+                Me chamo Danilo Andrade, sou desenvolvedor backend e IOT, 
+                atuo também na area de automacão industrial, criando projetos, 
+                soluções e prestando consultoria,
+                criei esse blog com a intenção de compartilhar alguns 
+                conhecimentos. 
+                <br> gostaria de saber mais sobre os meus trabalhos?
+                <a href="https://danilotec.github.io/" target="_blank">clique aqui</a>.
             </p>
         
             <div class="features">
                 <div class="feature">
                     <h3>🚀 Conteúdo Original</h3>
-                    <p>Artigos únicos baseados em experiência prática e pesquisa aprofundada sobre cada tema abordado.</p>
+                    <p>Artigos únicos baseados em experiência prática e pesquisa
+                         aprofundada sobre cada tema abordado.</p>
                 </div>
                 <div class="feature">
                     <h3>📚 Aprendizado Contínuo</h3>
-                    <p>Compartilho descobertas e lições aprendidas no dia a dia, sempre com foco no crescimento mútuo.</p>
+                    <p>Compartilho descobertas e lições aprendidas no dia a dia,
+                         sempre com foco no crescimento mútuo.</p>
                 </div>
                 <div class="feature">
                     <h3>💡 Insights Práticos</h3>
-                    <p>Dicas e estratégias aplicáveis que você pode usar em seus próprios projetos e desafios.</p>
+                    <p>Dicas e estratégias aplicáveis que você pode usar em seus
+                         próprios projetos e desafios.</p>
                 </div>
                 <div class="feature">
                     <h3>🌟 Diversidade de Temas</h3>
-                    <p>De tecnologia a desenvolvimento pessoal, explorando diferentes áreas do conhecimento.</p>
+                    <p>De tecnologia a desenvolvimento pessoal, explorando 
+                        diferentes áreas do conhecimento.</p>
                 </div>
             </div>
             
             <div class="cta">
                 <h3>Comece sua Jornada</h3>
-                <p>Navegue pelos artigos na sidebar ao lado e descubra conteúdos que podem transformar sua perspectiva. Cada artigo foi escrito com carinho e dedicação para agregar valor ao seu dia.</p>
+                <p>Navegue pelos artigos na sidebar ao lado e descubra conteúdos
+                     que podem transformar sua perspectiva. Cada artigo foi 
+                     escrito com carinho e dedicação para agregar 
+                     valor ao seu dia.</p>
             </div>
         </div>
             {% endif %}
         </div>
     </div>
+    <script>
+    // Função para alternar entre temas
+    function toggleTheme() {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme);
+    }
+
+    // Carregar tema salvo ou usar dark como padrão
+    function loadTheme() {
+        const savedTheme = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        
+        // Se não há tema salvo, usa dark como padrão
+        const theme = savedTheme || 'dark';
+        document.documentElement.setAttribute('data-theme', theme);
+    }
+
+    // Carregar tema ao inicializar
+    document.addEventListener('DOMContentLoaded', loadTheme);
+
+    // Escutar mudanças na preferência do sistema
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+        // Só muda automaticamente se não há preferência salva
+        if (!localStorage.getItem('theme')) {
+            document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+        }
+    });
+    </script>
     </body>
 </html>
