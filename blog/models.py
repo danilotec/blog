@@ -2,6 +2,7 @@ from django.db import models
 
 class Author(models.Model):
     name = models.CharField(verbose_name='Nome', max_length=30)
+    email = models.EmailField(verbose_name='Email')
 
     def __str__(self) -> str:
         return self.name
