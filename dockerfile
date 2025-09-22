@@ -10,4 +10,4 @@ COPY . /app/
 
 EXPOSE 8000
 
-CMD ["sh", "-c", "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:5000"]
+CMD ["sh", "-c", "python manage.py makemigrations && python manage.py migrate  && python manage.py collectstatic --noinput && gunicorn --bind 0.0.0.0:5000 --workers 3 --timeout 120 mysite.wsgi:application"]
